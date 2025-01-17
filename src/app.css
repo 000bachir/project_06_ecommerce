@@ -76,3 +76,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+html , body{
+  scroll-behavior: smooth;
+}
+
+body{
+  background: rgb(0 0% 3.9%);
+}

@@ -16,6 +16,7 @@
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.3",
+		"@iconify/svelte": "^4.2.0",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
@@ -46,6 +47,7 @@
 		"@supabase/ssr": "^0.5.2",
 		"@supabase/supabase-js": "^2.47.10",
 		"@tailwindcss/container-queries": "^0.1.1",
-		"@tailwindcss/forms": "^0.5.9"
+		"@tailwindcss/forms": "^0.5.9",
+		"gsap": "^3.12.5"
 	}
 }

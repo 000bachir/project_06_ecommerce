@@ -25,3 +25,5 @@ vite.config.ts.timestamp-*
 
 
 src/routes/settings
+
+Features.svelte.txt
