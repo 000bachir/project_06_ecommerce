@@ -6,6 +6,8 @@
     import Features from "$lib/components/home_ui_components/Features.svelte";
     import Hero from "$lib/components/home_ui_components/Hero.svelte"
 	import Intro from "$lib/components/home_ui_components/Intro.svelte";
+	import Testimonials from "$lib/components/home_ui_components/Testimonials/Testimonials.svelte";
+    import Redirect from "$lib/components/home_ui_components/Redirect.svelte";
 
 
     let {data} = $props()
@@ -23,4 +25,6 @@
     <Hero />
     <Intro />
     <Features />
+    <Testimonials />
+    <Redirect />
 </main>
