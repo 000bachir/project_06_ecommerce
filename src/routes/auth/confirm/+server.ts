@@ -8,7 +8,7 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
     // Extract the token_hash, type, and next parameters from the URL query string
     const token_hash = url.searchParams.get('token_hash'); // The OTP hash sent to the user's email
     const type = url.searchParams.get('type') as EmailOtpType | null; // The type of OTP (e.g., magic link, recovery)
-    const next = url.searchParams.get('next') ?? '/'; // The redirect path after successful authentication (defaults to root '/')
+    const next = url.searchParams.get('next') ?? '/private'; // The redirect path after successful authentication (defaults to root '/')
 
     /**
      * Prepare a clean redirect URL by:

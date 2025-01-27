@@ -53,7 +53,7 @@
 				<span class="xs:hidden whitespace-nowrap text-lg font-bold text-white ">Home</span>
 			</a>
 			<a
-				href="/Market"
+				href="/private/Market"
 				id="market"
 				class=" xs:hidden group flex w-full items-center justify-start gap-3 rounded-lg px-0 sm:px-2 md:hidden lg:flex"
 				aria-label="Market"
@@ -79,7 +79,7 @@
 				<span class="whitespace-nowrap text-lg font-bold sm:inline text-white">Faq</span>
 			</a>
 			<a
-				href="/Sign~in"
+				href="/auth"
 				class="group flex w-full items-center justify-start rounded-lg"
 				aria-label="sign~in"
 				id="sign-in"

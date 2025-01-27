@@ -4,7 +4,7 @@ import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/publi
 
 
 // Define the `load` function for the layout.
-export const load: LayoutLoad = async ({ data, fetch, depends }) => {
+export const load: LayoutLoad = async ({ data, depends, fetch }) => {
     // Declare a dependency for Supabase auth to trigger reloads when auth state changes.
     depends('supabase:auth');
 

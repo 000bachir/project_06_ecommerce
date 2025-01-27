@@ -1,80 +1,132 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { enhance } from '$app/forms';
+	import { supabaseClient } from '$lib/supabaseClient';
+	import type { Provider } from '@supabase/supabase-js';
+	import type { ActionData } from './$types';
+	import { type SubmitFunction } from '@sveltejs/kit';
 
-	let { data }: { data: PageData } = $props();
-	import Image from "$lib/assets/Images/Intro_Image_01.webp"
-	import {Button} from "$lib/components/ui/button"
-	import {Input} from "$lib/components/ui/input"
+	let { data, form }: { data: PageData; form: ActionData } = $props();
+	let loading: boolean = $state(false);
+	let error = $state<any | null>(null);
+	let successMessage:string = $state('');
+
+	// const handleSubmit: SubmitFunction = () => {
+	// 	loading = true;
+	// 	error = null;
+
+	// 	return async ({ result, update }) => {
+	// 		if (result.type === 'failure') {
+	// 			// Ensure proper formatting of the error message
+	// 			error = typeof result.data?.errors ? Object.values(result.data?.errors).join(' ') : result.data?.errors || 'An error occured';
+	// 		}
+
+	// 		await update();
+	// 		loading = false;
+	// 	};
+	// };
+
+	const handleSubmit: SubmitFunction = () => {
+		loading = true;
+		error = null;
+		successMessage = "";
+
+		return async ({ result, update }) => {
+			if (result.type === 'failure') {
+				// Ensure proper formatting of the error message
+				error = typeof result.data?.errors ? Object.values(result.data?.errors).filter(Boolean).join(' ') : result.data?.errors || 'An error occured';
+			}else if(result.type === "success"){
+				successMessage = result.data?.message
+			}
+
+			await update();
+			loading = false;
+		};
+	};
+
+
 </script>
 
-<!-- <main class="h-dvh w-full relative overflow-hidden grid grid-cols-2 bg-black text-white">
-    <section class="h-full w-full col-span-1">
-        <div class="h-full w-[95%] mx-auto flex flex-col items-center justify-center">
-            <form method="POST" action="?/login" class="flex flex-col items-center">
-                <label>
-                  Email
-                  <input name="email" type="email" />
-                </label>
-                <label>
-                  Password
-                  <input name="password" type="password" />
-                </label>
-                <button>Login</button>
-                <button formaction="?/signup">Sign up</button>
-              </form>
-        </div>
-    </section>
-    <section class="h-full w-full col-span-1">
-        
-    </section>
-</main> -->
+<svelte:head>
+	<title>User management</title>
+</svelte:head>
 
-<main class="relative inset-0 grid h-dvh w-full grid-cols-2 overflow-hidden">
-	<section
-		class="relative col-span-1 flex h-full w-full items-center justify-center overflow-hidden bg-white"
-	>
-		<form method="POST" action="?/login" class="flex flex-col items-center">
-			<div id="box" class="relative h-[28rem] w-96 border-none bg-[#000] overflow-hidden">
-				<div id="form" class="h-full w-full absolute z-10 bg-[#000] inset-[2px]  py-12 px-10 flex flex-col">
-					<h2 class="auth-form-title">Sign in</h2>
-					<div id="input-box" class="relative w-[18.75rem] mt-8">
-						<Input placeholder="Email" type={"email"} />
-						<p class="text-muted-foreground text-sm">Enter your email address.</p>
-					</div>
-					<div id="input-box" class="relative w-[18.75rem] mt-8">
-						<Input placeholder="Password" type={'password'} />
-						<p class="text-muted-foreground text-sm">Enter your email password.</p>
-					</div>
-					<div id="links" class="flex justify-between">
-						<button class="link-1 my-2 mx-0 text-sm text-white">Forgot Password</button>
-						<button class="link-2 my-2 mx-0 text-sm text-white" formaction="?/signup">Sign Up</button>
-					</div>
-					<Button size={'lg'}>
-						Login
-					</Button>
+<main class="relative grid h-dvh w-full grid-cols-2 overflow-hidden bg-black text-white">
+	<section class="col-span-1 h-full w-full">
+		<div class="mx-auto flex h-full w-[95%] flex-col items-center justify-center">
+			<form
+				method="POST"
+				action="?/login"
+				class="flex w-full max-w-md flex-col items-center gap-4"
+				use:enhance={handleSubmit}
+			>
+				<div class="w-full">
+					<label for="email" class="mb-2 block">Email</label>
+					<input
+						id="email"
+						name="email"
+						type="email"
+						value={form?.email ?? ''}
+						class="w-full rounded bg-gray-800 p-2"
+						disabled={loading}
+						required
+					/>
+					{#if form?.errors?.email}
+						<span class="mt-1 text-sm text-red-600">
+							{form.errors.email}
+						</span>
+					{/if}
 				</div>
-			</div>
-		</form>
-	</section>
 
-	<section class="h-full w-full relative overflow-hidden inset-0">
-		<img src={Image} alt="" loading="lazy" class="w-full h-full object-cover">
+				<div class="w-full">
+					<label for="password" class="mb-2 block">Password</label>
+					<input
+						id="password"
+						name="password"
+						type="password"
+						class="w-full rounded bg-gray-800 p-2"
+						disabled={loading}
+						required
+						minlength="6"
+					/>
+				</div>
+
+				{#if form?.errors?.email}
+					<span class="mt-1 text-sm text-red-600">
+						{form.errors.email}
+					</span>
+				{/if}
+
+				<div class="mt-4 flex gap-4">
+					<!-- <button
+						type="submit"
+						class="rounded bg-blue-600 px-4 py-2 disabled:opacity-50"
+						disabled={loading}
+					>
+						{loading ? 'Loading...' : 'Login'}
+					</button> -->
+
+					<button
+						type="submit"
+						formaction="?/signup"
+						class="rounded bg-green-600 px-4 py-2 disabled:opacity-50"
+						disabled={loading}
+					>
+						{loading ? 'Loading...' : 'Sign up'}
+					</button>
+				</div>
+			</form>
+		</div>
+	</section>
+	<section class="col-span-1 h-full w-full">
+		<h1 class="text-4xl text-green-500">
+			123456789
+		</h1>
 	</section>
 </main>
 
-<style lang="postcss">
-	#box {
-		box-shadow:
-			rgba(0, 0, 0, 0.25) 0px 54px 55px,
-			rgba(0, 0, 0, 0.12) 0px -12px 30px,
-			rgba(0, 0, 0, 0.12) 0px 4px 6px,
-			rgba(0, 0, 0, 0.17) 0px 12px 13px,
-			rgba(0, 0, 0, 0.09) 0px -3px 5px;
-	}
-	#links .link-1:hover,
-	#links .link-2:hover{
-		color: #45f3ff;
-		transition: all 200ms ease;
-	}
 
-</style>
+<!---
+import Image from "$lib/assets/Images/Intro_Image_01.webp"
+import {Button} from "$lib/components/ui/button"
+import {Input} from "$lib/components/ui/input" -->

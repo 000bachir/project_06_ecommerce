@@ -4,9 +4,10 @@
 	import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 	import PeopleReaction from '$lib/components/home_ui_components/Testimonials/PeopleReaction.svelte';
 
-	gsap.registerPlugin(ScrollTrigger);
 
 	function createScrollTriggerProperties(triggerElement: HTMLElement) {
+		gsap.registerPlugin(ScrollTrigger);
+
 		return {
 			trigger: triggerElement,
 			start: 'top top',
@@ -15,6 +16,8 @@
 		};
 	}
 	function barAppearing() {
+		gsap.registerPlugin(ScrollTrigger);
+
 		const bars = gsap.utils.toArray('.bars');
 		const startingPoint = document.getElementById('wrapper-text') as HTMLElement;
 
@@ -32,6 +35,8 @@
 	}
 
 	function WordAppear() {
+		gsap.registerPlugin(ScrollTrigger);
+
 		const feedbackWords = gsap.utils.toArray('.feedback');
 		const startingPoint = document.getElementById('text-wrapper') as HTMLElement;
 

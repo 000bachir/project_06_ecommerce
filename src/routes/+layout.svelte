@@ -9,8 +9,8 @@
 	let {session , supabase} = $derived(data)
 
 	onMount(()=>{
-		const {data} = supabase.auth.onAuthStateChange((_,newSession)=>{
-			if(newSession?.expires_at !== newSession?.expires_at){
+		const {data} = supabase.auth.onAuthStateChange((event,newSession)=>{
+			if(newSession?.expires_at !== session?.expires_at){
 				invalidate('supabase:auth')
 			}
 		})
@@ -22,7 +22,9 @@
 
 </script>
 
+<header class="h-20 w-full relative overflow-hidden inset-0 border-b-[1px] border-b-gray-600">
+	<Navbar />
+</header>
 
-<Navbar />
 
 {@render children()}
