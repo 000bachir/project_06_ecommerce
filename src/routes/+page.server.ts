@@ -1,11 +1,11 @@
-import type { PageServerLoad } from './$types';
+// import type { PageServerLoad } from './$types';
 
-export const load:PageServerLoad = async ({locals : {supabase}}) => {
+// export const load:PageServerLoad = async ({locals : {supabase}}) => {
 
-    const {data : countries} = await supabase.from('countries').select('name').limit(20).order('name')
+//     const {data : countries} = await supabase.from('countries').select('name').limit(20).order('name')
 
 
-    return {
-        countries : countries ?? []
-    };
-};
+//     return {
+//         countries : countries ?? []
+//     };
+// };

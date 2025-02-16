@@ -8,13 +8,12 @@ export const load: LayoutServerLoad = async ({ locals: { safeGetSession }, cooki
 
     // Destructuring `safeGetSession` from the `locals` object.
     // `safeGetSession` is expected to be a function that retrieves the current session and user details.
-    const { session, user } = await safeGetSession();
+    const { session } = await safeGetSession();
 
     // Returning an object containing the session, user, and all cookies.
     // This object will be accessible in the layout for rendering or further use.
     return {
         session, // Contains session data, such as authentication status or session-specific details.
-        user,    // Contains user data, such as user profile information or identifiers.
         cookies: cookies.getAll() // Retrieves all cookies as an array of key-value pairs.
     };
 };

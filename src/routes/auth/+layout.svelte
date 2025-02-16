@@ -6,11 +6,11 @@
 </script>
 
 
-<header>
+<!-- <header>
     <nav>
         <a href="/">Home</a>
     </nav>
-</header>
+</header> -->
 
 {@render children()}
 

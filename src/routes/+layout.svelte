@@ -22,7 +22,7 @@
 
 </script>
 
-<header class="h-20 w-full relative overflow-hidden inset-0 border-b-[1px] border-b-gray-600">
+<header class="h-20 w-full relative overflow-hidden border-b-[1px] border-b-gray-600">
 	<Navbar />
 </header>
 
