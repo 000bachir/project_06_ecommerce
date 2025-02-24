@@ -67,11 +67,11 @@
   }
 </script>
 
-<h1>Private page for user: {user?.email}</h1>
-<h2>Notes</h2>
+<h1 class="text-white" >Private page for user: {user?.email}</h1>
+<h2 class="text-white" >Notes</h2>
 <ul>
   {#each notes as note}
-    <li>{note.note}</li>
+    <li class="text-white">{note.note}</li>
   {/each}
 </ul>
 <form onsubmit={handleSubmit}>
@@ -80,3 +80,7 @@
     <input name="note" type="text" />
   </label>
 </form>
+
+
+
+<h1 class="text-red-500 ">hello wordl</h1>

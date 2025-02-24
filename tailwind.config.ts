@@ -5,6 +5,9 @@ const config: Config = {
 	darkMode: ["class"],
 	content: ["./src/**/*.{html,js,svelte,ts}"],
 	safelist: ["dark"],
+	plugins:[
+		require('daisyui'),
+	],
 	theme: {
 		container: {
 			center: true,
@@ -47,7 +50,8 @@ const config: Config = {
 				card: {
 					DEFAULT: "hsl(var(--card) / <alpha-value>)",
 					foreground: "hsl(var(--card-foreground) / <alpha-value>)"
-				}
+				},
+
 			},
 			borderRadius: {
 				lg: "var(--radius)",

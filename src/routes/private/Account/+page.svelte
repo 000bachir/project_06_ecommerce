@@ -1,37 +1,49 @@
-<!-- src/routes/account/+page.svelte
+<!-- src/routes/account/+page.svelte -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import Avatar from './Avatar.svelte';
 
-    let {data , form } = $props()
+	let { data, form  } = $props();
 
-    let session = $derived(data.session);
-    let supabase = $derived(data.supabase);
-    let profile = $derived(data.profile);
+	// Using let instead of $state since these are derived from props
 
-	let profileForm: HTMLFormElement
-	let loading = false
-	let fullName: string = profile?.full_name ?? ''
-	let username: string = profile?.username ?? ''
-	let avatarUrl: string = profile?.avatar_url ?? ''
+	let { session, supabase, profile } = data;
+	$effect(() => {
+		({
+			session,
+			supabase,
+			profile
+		});
+	});
+
+	//state declaration using runes
+
+	let loading = $state(false);
+	let fullName = $state(profile?.full_name ?? '');
+	let username = $state(profile?.username ?? '');
+	let avatarUrl = $state(profile?.avatar_url ?? '')
+
+	// refrencing the form element
+
+	let profileForm: HTMLFormElement;
 
 	const handleSubmit: SubmitFunction = () => {
-		loading = true
+		loading = true;
 		return async () => {
-			loading = false
-		}
-	}
-
+			loading = false;
+		};
+	};
 	const handleSignOut: SubmitFunction = () => {
-		loading = true
+		loading = true;
 		return async ({ update }) => {
-			loading = false
-			update()
-		}
-	}
+			loading = false;
+			update();
+		};
+	};
 </script>
 
-<div class="form-widget">
+<div class="form-widget h-dvh w-full text-white">
 	<form
 		class="form-widget"
 		method="post"
@@ -53,16 +65,11 @@
 			<label for="username">Username</label>
 			<input id="username" name="username" type="text" value={form?.username ?? username} />
 		</div>
- 
-		<div>
-			<label for="website">Website</label>
-			<input id="website" name="website" type="url" value={form?.website ?? website} />
-		</div> 
 
 		<div>
 			<input
 				type="submit"
-				class="button block primary"
+				class="button primary block"
 				value={loading ? 'Loading...' : 'Update'}
 				disabled={loading}
 			/>
@@ -74,10 +81,14 @@
 			<button class="button block" disabled={loading}>Sign Out</button>
 		</div>
 	</form>
+
+	<Avatar
+		{supabase}
+		bind:url={avatarUrl}
+		size={10}
+		
+		on:upload={() => {
+			profileForm.requestSubmit();
+		}}
+	/>
 </div>
- -->
-
-
-<h1 class="text-5xl text-green-600">
-	hello it worked just fine 
-</h1>
